@@ -4,15 +4,6 @@ import click
 from pydub import AudioSegment
 import taglib
 
-# def add_metadata(file_path, title, artist, album):
-#     audio = AudioSegment.from_file(file_path)
-
-#     # Add metadata to the audio file
-#     audio = audio.set_metadata({'title': title, 'artist': artist, 'album': album})
-
-#     # Save the modified audio with metadata
-#     audio.export(file_path, format="mp3")
-
 def add_metadata(file_path, title, artist, album):
     with taglib.File(file_path, save_on_exit=True) as song:
         song.tags['artist'] = artist
