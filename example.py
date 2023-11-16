@@ -23,19 +23,17 @@ models = {
 }
 
 def generate_music(model_name: str, music_length: int, music_name: str, music_description: str):
+    """
+    Generate music from text
+    """
     print(f"Getting model: {model_name}")
     model = MusicGen.get_pretrained(model_name)
     print(f"Setting duration: {music_length}")
-    model.set_generation_params(duration=music_length)  # generate 8 seconds.
-# wav = model.generate_unconditional(4)    # generates 4 unconditional audio samples
-# descriptions = ['lofi hip hop', 'old school chill lofi jazz beat', 'sad lofi jazz piano', 'lofi beat jazz guitar']
+    model.set_generation_params(duration=music_length)  
     descriptions = [music_description]
     print(f"Generating music {music_name} with the description: {music_description}")
-    wav = model.generate(descriptions)  # generates 3 samples.
+    wav = model.generate(descriptions)
 
-# melody, sr = torchaudio.load('./assets/bach.mp3')
-# generates using the melody from the given audio and the provided descriptions.
-# wav = model.generate_with_chroma(descriptions, melody[None].expand(3, -1, -1), sr)
     print(f"Saving audio file: {music_name}")
     for idx, one_wav in enumerate(wav):
     # Will save under {idx}.wav, with loudness normalization at -14 db LUFS.
@@ -50,5 +48,8 @@ for k,v in models.items():
 print(f"{len(models)} models processed")
 print(datetime.now() - startTime)
 
+# Update metadata
 os.system(f"python metadata.py {FOLDER_NAME}")
+
+# Split out audio
 os.system(f"python demucs.py {FOLDER_NAME}")
