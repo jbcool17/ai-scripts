@@ -13,5 +13,6 @@ def demucs(directory):
             if file.lower().endswith(('.wav', '.mp3')):                
                 os.system(f'demucs -o {directory} {file_path}')
                 click.echo("split successfully.")
+
 if __name__ == '__main__':
     demucs()
