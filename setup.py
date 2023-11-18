@@ -151,6 +151,8 @@ setup(
     entry_points={  # Optional
         "console_scripts": [
             "sample=demucs.demucs:demucs",
+            "process-models=musicgen.process_models:main"
+            
         ],
     },
     # # List additional URLs that are relevant to your project as a dict.

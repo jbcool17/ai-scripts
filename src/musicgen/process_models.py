@@ -41,8 +41,8 @@ def generate_music(model_name: str, music_length: int, music_name: str, music_de
     # Will save under {idx}.wav, with loudness normalization at -14 db LUFS.
         audio_write(f'{FOLDER_NAME}/{music_name}-{idx}', one_wav.cpu(), model.sample_rate, strategy="loudness", loudness_compressor=True)
 
-def main(models):
-    for k,v in models.items():
+def main():
+    for k,v in MODELS.items():
         model_start = datetime.now()
         print(f'Processing with {v}')
 
@@ -53,7 +53,7 @@ def main(models):
             print(f"An error occurred: {e}")
             continue
 
-    print(f"{len(models)} models processed")
+    print(f"{len(MODELS)} models processed")
     print(datetime.now() - startTime)
 
     # Update metadata
@@ -63,5 +63,4 @@ def main(models):
     # os.system(f"python demucs.py {FOLDER_NAME}")
 
 if __name__ == '__main__':
-
-    main(MODELS)
+    main()
