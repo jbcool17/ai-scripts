@@ -20,3 +20,6 @@ pip install .
 ## todo
 
 - add ffmpeg fade in / out
+- demucs lib
+- prompt input to cli
+- add pytablib to cli
