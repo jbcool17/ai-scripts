@@ -150,7 +150,7 @@ setup(
     # executes the function `main` from this package when invoked:
     entry_points={  # Optional
         "console_scripts": [
-            "sample=demucs.demucs:demucs",
+            "sample=split_audio.cli:demucs",
             "process-models=musicgen.process_models:main"
             
         ],
