@@ -1,22 +1,15 @@
 import os
-import torchaudio
-from audiocraft.models import MusicGen
-from audiocraft.data.audio import audio_write
-
 from datetime import datetime
 
-MODELS = {
-    "small": "facebook/musicgen-small",
-    # "melody": "facebook/musicgen-melody",
-    "medium": "facebook/musicgen-medium",
-    "large": "facebook/musicgen-large",
-    # "melody-large": "facebook/musicgen-melody-large",
-    # "stereo-small": "facebook/musicgen-stereo-small",
-    # "stereo-medium": "facebook/musicgen-stereo-medium",
-    # "stereo-melody": "facebook/musicgen-stereo-melody",
-    # "stereo-large": "facebook/musicgen-stereo-large",
-    # "stereo-melody-large": "facebook/musicgen-stereo-melody-large",
-}
+from audiocraft.data.audio import audio_write
+from audiocraft.models import MusicGen
+
+from music_metadata import metadata
+from musicgen.models import MODELS
+from split_audio import cli as split_audio
+
+MODELS = MODELS["test"]
+
 
 def generate_music(model_name: str, music_length: int, music_name: str, music_description: str, folder_name: str):
     """
@@ -30,27 +23,34 @@ def generate_music(model_name: str, music_length: int, music_name: str, music_de
 
     print(f"Generating music {music_name} with the description: {music_description}")
     descriptions = [music_description]
-    wav = model.generate(descriptions=descriptions,progress=True)
+    wav = model.generate(descriptions=descriptions, progress=True)
 
     print(f"Saving audio file: {folder_name}/{music_name}")
     for idx, one_wav in enumerate(wav):
-    # Will save under {idx}.wav, with loudness normalization at -14 db LUFS.
-        audio_write(f'{folder_name}/{music_name}-{idx}', one_wav.cpu(), model.sample_rate, strategy="loudness", loudness_compressor=True)
+        # Will save under {idx}.wav, with loudness normalization at -14 db LUFS.
+        audio_write(
+            f"{folder_name}/{music_name}-{idx}",
+            one_wav.cpu(),
+            model.sample_rate,
+            strategy="loudness",
+            loudness_compressor=True,
+        )
 
-def main():
+
+def main(prompt: str, duration: int):
     startTime = datetime.now()
 
     folder_name = f'ai-lofi-{startTime.strftime("%Y-%m-%d_%H-%M-%S")}'
     os.makedirs(folder_name)
     models_processed = 0
-    for k,v in MODELS.items():
+    for k, v in MODELS.items():
         print()
         model_start = datetime.now()
-        print(f'Processing with {v}')
+        print(f"Processing with {v}")
 
         try:
-            generate_music(v, 2, f'ai-song-00-{k}', 'mellow lofi beat with piano', folder_name)
-            print(f'SUCCESS: model {k} : {v} took {datetime.now() - model_start}')
+            generate_music(v, duration, f"ai-song-00-{k}", prompt, folder_name)
+            print(f"SUCCESS: model {k} : {v} took {datetime.now() - model_start}")
             models_processed += 1
         except Exception as e:
             print(f"An error occurred: {e}")
@@ -60,10 +60,16 @@ def main():
     print(datetime.now() - startTime)
 
     # Update metadata
-    os.system(f"python src/metadata.py {folder_name}")
+    # os.system(f"python src/metadata.py {folder_name}")
+    metadata.process_directory(folder_name)
 
     # Split out audio
-    # os.system(f"python demucs.py {folder_name}")
+    # os.system(f"split-audio {folder_name}")
+    split_audio.split_audio_in_directory([folder_name])
 
-if __name__ == '__main__':
+    print()
+    print(f"Check files in the follow directory: {folder_name}")
+
+
+if __name__ == "__main__":
     main()

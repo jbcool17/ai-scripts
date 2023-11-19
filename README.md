@@ -17,9 +17,15 @@ pip install .
 
 ```
 
+### MUSICGEN CLI
+
+- simple cli that takes a prompt and generates music using the small model, inserting metadata and splitting out the tracks
+
+```bash
+
+ musicgen-cli --prompt "lofi guitar" --description 10
+```
+
 ## todo
 
 - add ffmpeg fade in / out
-- demucs lib
-- prompt input to cli
-- add pytablib to cli

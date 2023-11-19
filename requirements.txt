@@ -4,3 +4,4 @@ click
 demucs
 xformers==0.0.20
 audiocraft
+pre-commit==3.5.0
