@@ -11,10 +11,10 @@ MODELS = {
     "medium": "facebook/musicgen-medium",
     "large": "facebook/musicgen-large",
     # "melody-large": "facebook/musicgen-melody-large",
-    "stereo-small": "facebook/musicgen-stereo-small",
-    "stereo-medium": "facebook/musicgen-stereo-medium",
+    # "stereo-small": "facebook/musicgen-stereo-small",
+    # "stereo-medium": "facebook/musicgen-stereo-medium",
     # "stereo-melody": "facebook/musicgen-stereo-melody",
-    "stereo-large": "facebook/musicgen-stereo-large",
+    # "stereo-large": "facebook/musicgen-stereo-large",
     # "stereo-melody-large": "facebook/musicgen-stereo-melody-large",
 }
 
