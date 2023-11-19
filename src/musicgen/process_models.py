@@ -7,15 +7,15 @@ from datetime import datetime
 
 MODELS = {
     "small": "facebook/musicgen-small",
-    "melody": "facebook/musicgen-melody",
+    # "melody": "facebook/musicgen-melody",
     "medium": "facebook/musicgen-medium",
     "large": "facebook/musicgen-large",
-    "melody-large": "facebook/musicgen-melody-large",
+    # "melody-large": "facebook/musicgen-melody-large",
     "stereo-small": "facebook/musicgen-stereo-small",
     "stereo-medium": "facebook/musicgen-stereo-medium",
-    "stereo-melody": "facebook/musicgen-stereo-melody",
+    # "stereo-melody": "facebook/musicgen-stereo-melody",
     "stereo-large": "facebook/musicgen-stereo-large",
-    "stereo-melody-large": "facebook/musicgen-stereo-melody-large",
+    # "stereo-melody-large": "facebook/musicgen-stereo-melody-large",
 }
 
 def generate_music(model_name: str, music_length: int, music_name: str, music_description: str, folder_name: str):

@@ -1,5 +1,5 @@
 torch
-tablib
+pytaglib
 click
 demucs
 xformers==0.0.20
