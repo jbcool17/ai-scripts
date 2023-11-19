@@ -1,6 +1,6 @@
 # ai-scripts
 
-- scripts for testing ai music generation with
+- Exploring ai
 
 ## Usage
 
