@@ -43,6 +43,10 @@ def main(prompt: str, duration: int):
     folder_name = f'ai-lofi-{startTime.strftime("%Y-%m-%d_%H-%M-%S")}'
     os.makedirs(folder_name)
     models_processed = 0
+
+    with open(f"{folder_name}/details.txt", "w") as details:
+        details.write(f"{prompt} \n")
+
     for k, v in MODELS.items():
         print()
         model_start = datetime.now()
@@ -50,14 +54,24 @@ def main(prompt: str, duration: int):
 
         try:
             generate_music(v, duration, f"ai-song-00-{k}", prompt, folder_name)
-            print(f"SUCCESS: model {k} : {v} took {datetime.now() - model_start}")
+            model_duration = datetime.now() - model_start
+            print(f"SUCCESS: model {k} : {v} took {model_duration}")
             models_processed += 1
+
+            with open(f"{folder_name}/details.txt", "a") as details:
+                details.write("--- \n")
+                details.write(f"model {k} : {v} took {model_duration} \n")
+
         except Exception as e:
             print(f"An error occurred: {e}")
             continue
 
+    total_duration = datetime.now() - startTime
     print(f"{models_processed} models processed")
-    print(datetime.now() - startTime)
+    print(total_duration)
+
+    with open(f"{folder_name}/details.txt", "a") as details:
+        details.write(f"total duration: {total_duration} \n")
 
     # Update metadata
     # os.system(f"python src/metadata.py {folder_name}")
