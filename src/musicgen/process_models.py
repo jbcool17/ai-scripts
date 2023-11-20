@@ -37,7 +37,7 @@ def generate_music(model_name: str, music_length: int, music_name: str, music_de
         )
 
 
-def main(prompt: str, duration: int):
+def main(prompt: str, duration: int, split_audio_disabled: bool):
     startTime = datetime.now()
 
     folder_name = f'ai-lofi-{startTime.strftime("%Y-%m-%d_%H-%M-%S")}'
@@ -79,7 +79,8 @@ def main(prompt: str, duration: int):
 
     # Split out audio
     # os.system(f"split-audio {folder_name}")
-    split_audio.split_audio_in_directory([folder_name])
+    if not split_audio_disabled:
+        split_audio.split_audio_in_directory([folder_name])
 
     print()
     print(f"Check files in the follow directory: {folder_name}")
