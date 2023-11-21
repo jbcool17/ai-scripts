@@ -1,6 +1,6 @@
 # ai-scripts
 
-- Exploring ai
+- Exploring various ai libraries and models
 
 ## Usage
 
@@ -25,7 +25,3 @@ pip install .
 
  musicgen-cli --prompt "lofi guitar" --description 10
 ```
-
-## todo
-
-- add ffmpeg fade in / out
