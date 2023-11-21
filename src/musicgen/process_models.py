@@ -45,7 +45,8 @@ def main(prompt: str, duration: int, split_audio_disabled: bool):
     models_processed = 0
 
     with open(f"{folder_name}/details.txt", "w") as details:
-        details.write(f"{prompt} \n")
+        details.write(f"Prompt: {prompt} \n")
+        details.write(f"Track Duration: {duration} \n")
 
     for k, v in MODELS.items():
         print()
